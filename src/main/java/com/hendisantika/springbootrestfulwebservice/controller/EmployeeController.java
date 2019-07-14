@@ -79,4 +79,23 @@ public class EmployeeController {
         return new ResponseEntity<ServiceResponse>(response, HttpStatus.CREATED);
     }
 
+    @PutMapping("/employee/{employeeId}")
+    public ResponseEntity<ServiceResponse> addEmployeeWithPut(@PathVariable int employeeId, @RequestBody Employee emp) {
+        Iterator<Employee> it = EmployeeService.getEmpSet().iterator();
+        while (it.hasNext()) {
+            Employee tempEmp = it.next();
+            if (tempEmp.getId() == employeeId) {
+                tempEmp.setId(employeeId);
+                tempEmp.setName(emp.getName());
+                tempEmp.setSalary(emp.getSalary());
+                ServiceResponse repsonse = new ServiceResponse(true,
+                        "Employee with id " + employeeId + " is updated Successfully");
+                repsonse.addParam(tempEmp.getId() + "", tempEmp);
+                return new ResponseEntity<ServiceResponse>(repsonse, HttpStatus.OK);
+            }
+        }
+        ServiceResponse response = new ServiceResponse(true, "Employee with id: " + employeeId + " not avilable");
+        return new ResponseEntity<ServiceResponse>(response, HttpStatus.NOT_FOUND);
+    }
+
 }
