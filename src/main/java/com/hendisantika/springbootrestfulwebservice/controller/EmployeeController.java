@@ -28,7 +28,7 @@ public class EmployeeController {
     private EmployeeService employeeService;
 
     @GetMapping("/allEmployee")
-    public ResponseEntity<ServiceResponse> allEmployee() {
+    public ResponseEntity<ServiceResponse> allEmployees() {
         @SuppressWarnings("static-access")
         Set<Employee> employees = employeeService.getEmpSet();
         ServiceResponse response = new ServiceResponse(true, "All employees");
@@ -47,7 +47,7 @@ public class EmployeeController {
                 return new ResponseEntity<ServiceResponse>(response, HttpStatus.OK);
             }
         }
-        ServiceResponse response = new ServiceResponse(true, "Employee with id: " + employeeId + " not avilable");
+        ServiceResponse response = new ServiceResponse(true, "Employee with id: " + employeeId + " not available");
         return new ResponseEntity<ServiceResponse>(response, HttpStatus.NOT_FOUND);
     }
 
@@ -74,7 +74,7 @@ public class EmployeeController {
         int id = EmployeeService.getUniqueId();
         tempEmp.setId(id);
         EmployeeService.addEmpSet(tempEmp);
-        ServiceResponse response = new ServiceResponse(true, "Employee Added Successfuly");
+        ServiceResponse response = new ServiceResponse(true, "Employee Added Successfully");
         response.addParam(id + "", tempEmp);
         return new ResponseEntity<ServiceResponse>(response, HttpStatus.CREATED);
     }
@@ -94,7 +94,7 @@ public class EmployeeController {
                 return new ResponseEntity<ServiceResponse>(repsonse, HttpStatus.OK);
             }
         }
-        ServiceResponse response = new ServiceResponse(true, "Employee with id: " + employeeId + " not avilable");
+        ServiceResponse response = new ServiceResponse(true, "Employee with id: " + employeeId + " not available");
         return new ResponseEntity<ServiceResponse>(response, HttpStatus.NOT_FOUND);
     }
 
