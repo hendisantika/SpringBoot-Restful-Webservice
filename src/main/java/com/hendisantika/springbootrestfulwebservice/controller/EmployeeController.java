@@ -8,9 +8,11 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.Iterator;
 import java.util.Set;
 
 /**
@@ -35,6 +37,21 @@ public class EmployeeController {
         ServiceResponse response = new ServiceResponse(true, "All employees");
         response.addParam("AllEmployee", employees);
         return new ResponseEntity<ServiceResponse>(response, HttpStatus.OK);
+    }
+
+    @GetMapping("/employee/{employeeId}")
+    public ResponseEntity<ServiceResponse> employeeById(@PathVariable int employeeId) {
+        Iterator<Employee> it = EmployeeService.getEmpSet().iterator();
+        while (it.hasNext()) {
+            Employee emp = it.next();
+            if (emp.getId() == employeeId) {
+                ServiceResponse response = new ServiceResponse(true, "Employee with id: " + employeeId);
+                response.addParam("EmployeeById", emp);
+                return new ResponseEntity<ServiceResponse>(response, HttpStatus.OK);
+            }
+        }
+        ServiceResponse response = new ServiceResponse(true, "Employee with id: " + employeeId + " not avilable");
+        return new ResponseEntity<ServiceResponse>(response, HttpStatus.NOT_FOUND);
     }
 
 }
