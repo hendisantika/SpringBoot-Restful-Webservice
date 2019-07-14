@@ -1,5 +1,6 @@
 package com.hendisantika.springbootrestfulwebservice.model;
 
+import lombok.AllArgsConstructor;
 import lombok.Data;
 
 /**
@@ -12,6 +13,7 @@ import lombok.Data;
  * Time: 08:30
  */
 @Data
+@AllArgsConstructor
 public class Employee {
     private int id;
     private String name;
