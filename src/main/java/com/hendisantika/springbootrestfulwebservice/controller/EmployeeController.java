@@ -68,4 +68,15 @@ public class EmployeeController {
         return new ResponseEntity<ServiceResponse>(response, HttpStatus.NOT_FOUND);
     }
 
+    @PostMapping(value = "/employee")
+    public ResponseEntity<ServiceResponse> addEmployeeWithPost(@RequestBody Employee emp) {
+        Employee tempEmp = emp;
+        int id = EmployeeService.getUniqueId();
+        tempEmp.setId(id);
+        EmployeeService.addEmpSet(tempEmp);
+        ServiceResponse response = new ServiceResponse(true, "Employee Added Successfuly");
+        response.addParam(id + "", tempEmp);
+        return new ResponseEntity<ServiceResponse>(response, HttpStatus.CREATED);
+    }
+
 }
